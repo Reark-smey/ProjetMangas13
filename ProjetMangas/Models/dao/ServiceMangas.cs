@@ -124,7 +124,7 @@ namespace ProjetMangas.Models.dao
                 mysql += " join genre on manga.id_genre = genre.id_genre";
                 mysql += " join dessinateur on manga.id_dessinateur = dessinateur.id_dessinateur";
                 mysql += " join scenariste on manga.id_scenariste = scenariste.id_scenariste";
-                mysql += " where Titre LIKE '" + id + "%' ";
+                mysql += " where Titre LIKE '" + id + "%'";
 
                 mesMangas = DBInterface.Lecture(mysql, er);
 

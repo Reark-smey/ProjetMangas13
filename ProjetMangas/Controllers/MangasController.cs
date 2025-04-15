@@ -78,17 +78,18 @@ namespace ProjetMangas.Controllers
                 if((id > 0) && (String.IsNullOrEmpty(Titre)))
                 {
                     mesMangas = ServiceManga.RechercheTitreParId(id);
-                } else if((id == 0) && (String.IsNullOrEmpty(Titre)))
+                } else if(id == 0) 
                 {
                     mesMangas = ServiceManga.RechercheTitreParString(Titre);
                 }
                
-                return View(mesMangas);
+               
             }
             catch (MonException e)
             {
                 return NotFound();
             }
+            return View("Index", mesMangas);
         }
     }
 }
