@@ -62,7 +62,28 @@ namespace ProjetMangas.Controllers
             try
             {
                 mesMangas = ServiceManga.GetTitres(); ;
-                return View();
+                return View(mesMangas);
+            }
+            catch (MonException e)
+            {
+                return NotFound();
+            }
+        }
+        [HttpPost]
+        public IActionResult Rechercher(String Titre, int id)
+        {
+            System.Data.DataTable mesMangas = null;
+            try
+            {
+                if((id > 0) && (String.IsNullOrEmpty(Titre)))
+                {
+                    mesMangas = ServiceManga.RechercheTitreParId(id);
+                } else if((id == 0) && (String.IsNullOrEmpty(Titre)))
+                {
+                    mesMangas = ServiceManga.RechercheTitreParString(Titre);
+                }
+               
+                return View(mesMangas);
             }
             catch (MonException e)
             {

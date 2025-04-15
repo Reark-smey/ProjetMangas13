@@ -98,10 +98,57 @@ namespace ProjetMangas.Models.dao
             Serreurs er = new Serreurs("Erreur sur lecture de mes Mangas", "Mangas.getMangas()");
             try
             {
-                String mysql = " Select  Titre";
+                String mysql = " Select id_manga, Titre";
                 mysql += " from manga";
                 mysql += " ORDER BY Titre ";
                 
+                mesMangas = DBInterface.Lecture(mysql, er);
+
+                return mesMangas;
+
+            }
+            catch (MonException e)
+            {
+                throw new MonException(er.MessageUtilisateur(), er.MessageApplication(), e.Message);
+            }
+        }
+
+        public static DataTable RechercheTitreParString(String id)
+        {
+            DataTable mesMangas;
+            Serreurs er = new Serreurs(" Erreur sur la recherche d'un manga.", "ServiceManga.RechercheTitreParString()");
+            try
+            {
+                String mysql = " Select id_manga, Titre, lib_genre, nom_dessinateur, nom_scenariste, prix, couverture";
+                mysql += " from manga";
+                mysql += " join genre on manga.id_genre = genre.id_genre";
+                mysql += " join dessinateur on manga.id_dessinateur = dessinateur.id_dessinateur";
+                mysql += " join scenariste on manga.id_scenariste = scenariste.id_scenariste";
+                mysql += " where Titre LIKE '" + id + "%' ";
+
+                mesMangas = DBInterface.Lecture(mysql, er);
+
+                return mesMangas;
+
+            } catch(MonException e)
+            {
+                throw new MonException(er.MessageUtilisateur(), er.MessageApplication(), e.Message);
+            }
+        }
+
+        public static DataTable RechercheTitreParId(int id)
+        {
+            DataTable mesMangas;
+            Serreurs er = new Serreurs(" Erreur sur la recherche d'un manga.", "ServiceManga.RechercheTitreParString()");
+            try
+            {
+                String mysql = " Select id_manga, Titre, lib_genre, nom_dessinateur, nom_scenariste, prix, couverture";
+                mysql += " from manga";
+                mysql += " join genre on manga.id_genre = genre.id_genre";
+                mysql += " join dessinateur on manga.id_dessinateur = dessinateur.id_dessinateur";
+                mysql += " join scenariste on manga.id_scenariste = scenariste.id_scenariste";
+                mysql += " where id_manga = " + id;
+
                 mesMangas = DBInterface.Lecture(mysql, er);
 
                 return mesMangas;

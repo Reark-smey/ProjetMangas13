@@ -18,7 +18,26 @@
                     <hr />
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-                    
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend mr-2 col-lg-4 col-xl-3">
+                        <span class="input-group-text" id="scenariste-input">Recherche par Titre : </span>
+                    </div>
+                    <select name="id">
+                        <option value="0" selected="selected">Recherche libre</option>
+                       @foreach(DataRow titre in Model.Rows)
+                       {
+                            <option value="@titre[0]"> @titre[1]</option>
+                       }
+
+                    </select>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend mr-2 col-lg-4 col-xl-3">
+                        <span class="input-group-text" id="scenariste-input">Recherche Libre : </span>
+                    </div>
+                    <input name="Titre" type="text" class="form-control" id="titre" />
+                </div>
 
 
 
