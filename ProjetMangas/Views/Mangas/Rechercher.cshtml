@@ -1,0 +1,34 @@
+﻿@model System.Data.DataTable
+@using System.Data;
+@{
+    ViewBag.Title = "Rechercher";
+    Layout = "~/Views/Shared/_LayoutManga.cshtml";
+}
+<h2>Rechercher un manga</h2>
+
+    @using (Html.BeginForm("Rechercher", "Mangas", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="card col-8 mx-auto mt-5">
+            <div class="card-body">
+                <h3 class="card-title">Rechercher un Manga</h3>
+                <div class="form-horizontal">
+
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    
+
+
+
+                   
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Enregistrer" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
