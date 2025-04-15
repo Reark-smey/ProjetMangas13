@@ -10,6 +10,7 @@ namespace ProjetMangas.Controllers
         public IActionResult Index()
         {
             System.Data.DataTable mesMangas = null;
+            ViewBag.Titre = "Liste de mes Mangas";
             try
             {
 
@@ -73,6 +74,7 @@ namespace ProjetMangas.Controllers
         public IActionResult Rechercher(String Titre, int id)
         {
             System.Data.DataTable mesMangas = null;
+            ViewBag.Title = "Liste des mangas recherchés";
             try
             {
                 if((id > 0) && (String.IsNullOrEmpty(Titre)))
