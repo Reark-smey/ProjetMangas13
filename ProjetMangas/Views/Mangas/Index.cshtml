@@ -57,7 +57,7 @@
                     </td>
                     <td style="text-align:center">
                         <span>
-                            <a href="@Url.Action("Supprimer","Mangas", new { id = dataRow[0]})" class="btn btn-default btn-primary">
+                            <a onclick="return confirm('vous êtes sûr de vouloir supprimer?')" href="@Url.Action("Supprimer","Mangas", new { id = dataRow[0]})" class="btn btn-default btn-primary">
                                 <i class="bi bi-trash3-fill"></i>
                             </a>
                         </span>

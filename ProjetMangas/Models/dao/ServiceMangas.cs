@@ -5,6 +5,7 @@ using ProjetMangas.Models.MesExceptions;
 using ProjetMangas.Models.Metier;
 using System.Security.Cryptography.X509Certificates;
 using MySqlX.XDevAPI;
+using Org.BouncyCastle.Asn1.Ocsp;
 
 namespace ProjetMangas.Models.dao
 {
@@ -159,8 +160,115 @@ namespace ProjetMangas.Models.dao
                 throw new MonException(er.MessageUtilisateur(), er.MessageApplication(), e.Message);
             }
         }
+
+        public static void Supprimer(int id)
+        {
+            DataTable mesMangas;
+            Serreurs er = new Serreurs(" Erreur sur la Suppression.", "ServiceManga.Supprimer()");
+
+            try
+            {
+                String mysql = " DELETE ";
+                mysql += " from manga";
+                mysql += " where id_manga = " + id;
+
+                DBInterface.Execute_Transaction(mysql);
+            }
+            catch (MonException e)
+            {
+                throw new MonException(er.MessageUtilisateur(), er.MessageApplication(), e.Message);
+            }
+        }
+
+        public static void AjouterManga(Manga unM)
+        {
+            DataTable mesMangas;
+            Serreurs er = new Serreurs(" Erreur sur l'ajout' d'un manga.", "ServiceManga.Ajouter()");
+            String mysql = " INSERT INTO manga VALUES " +
+                " id_manga = " + unM.Id_manga +
+                " id_scenariste = " + unM.Id_scenariste +
+                " ,id_dessinateur = " + unM.Id_dessinateur +
+                " ,id_genre = " + unM.Id_genre +
+                " , titre = '" + unM.Titre + "'" +
+                " ,Prix = " + unM.Prix.ToString().Replace(',', '.') +
+                " ,couverture = '" + unM.Couverture + "'";
+            try
+            {                
+               
+                DBInterface.Execute_Transaction(mysql);
+            }
+            catch (MonException e)
+            {
+                throw new MonException(er.MessageUtilisateur(), er.MessageApplication(), e.Message);
+            }
+        }
+        public static DataTable GetDessinateurs()
+        {
+            DataTable mesMangas;
+            Serreurs er = new Serreurs("Erreur sur lecture de mes Mangas", "Mangas.getMangas()");
+            try
+            {
+                String mysql = " Select *";
+                mysql += " from dessinateur";
+             
+                mesMangas = DBInterface.Lecture(mysql, er);
+
+                return mesMangas;
+
+
+            }
+            catch (MonException e)
+            {
+                throw new MonException(er.MessageUtilisateur(), er.MessageApplication(), e.Message);
+            }
+        }
+
+        public static DataTable GetGenre()
+        {
+            DataTable mesMangas;
+            Serreurs er = new Serreurs("Erreur sur lecture de mes Mangas", "Mangas.getMangas()");
+            try
+            {
+                String mysql = " Select *";
+                mysql += " from genre";
+
+                mesMangas = DBInterface.Lecture(mysql, er);
+
+                return mesMangas;
+
+
+            }
+            catch (MonException e)
+            {
+                throw new MonException(er.MessageUtilisateur(), er.MessageApplication(), e.Message);
+            }
+        }
+
+        public static DataTable GetScenariste()
+        {
+            DataTable mesMangas;
+            Serreurs er = new Serreurs("Erreur sur lecture de mes Mangas", "Mangas.getMangas()");
+            try
+            {
+                String mysql = " Select *";
+                mysql += " from scneariste";
+
+                mesMangas = DBInterface.Lecture(mysql, er);
+
+                return mesMangas;
+
+
+            }
+            catch (MonException e)
+            {
+                throw new MonException(er.MessageUtilisateur(), er.MessageApplication(), e.Message);
+            }
+        }
+
     }
 }
+
+
 
 
 

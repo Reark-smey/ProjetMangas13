@@ -1,0 +1,74 @@
+﻿@{
+    ViewBag.Title = " Ajouter ";
+    Layout = "~/Views/Shared/_LayoutManga.Cshtml";
+}
+<h1>Ajouter un manga</h1>
+
+@using (Html.BeginForm("Ajouter", "Mangas", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="card col-8 mx-auto mt-5">
+        <div class="card-body">
+            <h3 class="card-title">Ajouter un Manga</h3>
+            <div class="form-horizontal">
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend mr-2 col-lg-4 col-xl-3">
+                        <span class="input-group-text" id="scenariste-input">Dessinateur : </span>
+                    </div>
+                    <input name="Id_dessinateur" type="int" class="form-control" value="" id="Id_dessinateur" />
+                </div>
+
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend mr-2 col-lg-4 col-xl-3">
+                        <span class="input-group-text" id="scenariste-input">Scénariste : </span>
+                    </div>
+                    <input name="Id_scenariste" type="int" class="form-control" value="" id="Id_scenariste" />
+                </div>
+
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend mr-2 col-lg-4 col-xl-3">
+                        <span class="input-group-text" id="prix-input">Prix : </span>
+                    </div>
+                    <input name="Prix" type="number" class="form-control" value="" id="Prix" />
+                </div>
+
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend mr-2 col-lg-4 col-xl-3">
+                        <span class="input-group-text" id="titre-input">Titre du manga : </span>
+                    </div>
+                    <input name="Titre" type="text" class="form-control" value="" id="Titre" />
+                </div>
+
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend mr-2 col-lg-4 col-xl-3">
+                        <span class="input-group-text" id="titre-input">Couverture : </span>
+                    </div>
+                    <input name="Couverture" type="text" class="form-control" value="" id="Couverture" />
+                </div>
+
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend mr-2 col-lg-4 col-xl-3">
+                        <span class="input-group-text" id="titre-input">Genre du manga : </span>
+                    </div>
+                    <input name="Id_genre" type="int" class="form-control" value="" id="ID Genre" />
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Enregistrer" class="btn btn-primary" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+            }

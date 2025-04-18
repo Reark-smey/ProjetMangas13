@@ -103,19 +103,62 @@ namespace ProjetMangas.Controllers
             return View("Index", mesMangas);
         }
 
-        public IActionResult Supprimer()
+      
+        public IActionResult Supprimer(int id)
         {
+            if (HttpContext.Session.GetString("login") == null) return RedirectToAction("Index", "Home");
+            System.Data.DataTable mesMangas = null;
+            string title = "Liste de mes Mangas";
+            ViewBag.Titre = title;
             try
             {
-
-                return View("Index");
+                ServiceManga.Supprimer(id);
+                
             }
-            catch
-            (MonException e)
+            catch (MonException e)
             {
                 return NotFound();
+
+            }
+            mesMangas = ServiceManga.GetToutLesMangas();
+            return View("Index", mesMangas);
+        }
+
+        public IActionResult Ajouter()
+        {
+            if (HttpContext.Session.GetString("login") == null) return RedirectToAction("Index", "Home");
+
+            try
+            {
+                ServiceManga.GetToutLesMangas();
+                return View();
+            }
+            catch (MonException e)
+            {
+                return NotFound();
+
             }
         }
+
+            [HttpPost]
+            public IActionResult Ajouter(Manga unM)
+            {
+                if (HttpContext.Session.GetString("login") == null) return RedirectToAction("Index", "Home");
+            System.Data.DataTable mesMangas = null;
+            string title = "Liste de mes Mangas";
+            ViewBag.Titre = title;
+            try
+                {
+                mesMangas = ServiceManga.GetToutLesMangas();
+                ServiceManga.AjouterManga(unM);
+                    return View("Index", mesMangas);
+                }
+                catch (MonException e)
+                {
+                    return NotFound();
+
+                }
+            }
     }
 }
 
