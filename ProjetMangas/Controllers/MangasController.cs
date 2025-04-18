@@ -9,8 +9,11 @@ namespace ProjetMangas.Controllers
     {
         public IActionResult Index()
         {
+            if (HttpContext.Session.GetString("login") == null) return RedirectToAction("Index", "Home");
+
             System.Data.DataTable mesMangas = null;
-            ViewBag.Titre = "Liste de mes Mangas";
+            string title = "Liste de mes Mangas";
+            ViewBag.Titre = title;
             try
             {
 
@@ -29,6 +32,7 @@ namespace ProjetMangas.Controllers
 
         public IActionResult Modifier(string id)
         {
+           if (HttpContext.Session.GetString("login") == null) return RedirectToAction("Index", "Home");
             Manga unManga = null;
             try
             {
@@ -45,6 +49,7 @@ namespace ProjetMangas.Controllers
         [HttpPost]
         public IActionResult Modifier(Manga unM)
         {
+            if (HttpContext.Session.GetString("login") == null) return RedirectToAction("Index", "Home");
             try
             {
                 ServiceManga.UpdateManga(unM);
@@ -59,6 +64,7 @@ namespace ProjetMangas.Controllers
 
         public IActionResult Rechercher()
         {
+            if (HttpContext.Session.GetString("login") == null) return RedirectToAction("Index", "Home");
             System.Data.DataTable mesMangas = null;
             try
             {
@@ -73,25 +79,42 @@ namespace ProjetMangas.Controllers
         [HttpPost]
         public IActionResult Rechercher(String Titre, int id)
         {
+            if (HttpContext.Session.GetString("login") == null) return RedirectToAction("Index", "Home");
             System.Data.DataTable mesMangas = null;
-            ViewBag.Title = "Liste des mangas recherchés";
+            String title = "Liste des mangas recherchés";
+            ViewBag.Titre = title;
             try
             {
-                if((id > 0) && (String.IsNullOrEmpty(Titre)))
+                if ((id > 0) && (String.IsNullOrEmpty(Titre)))
                 {
                     mesMangas = ServiceManga.RechercheTitreParId(id);
-                } else if(id == 0) 
+                }
+                else if (id == 0)
                 {
                     mesMangas = ServiceManga.RechercheTitreParString(Titre);
                 }
-               
-               
+
+
             }
             catch (MonException e)
             {
                 return NotFound();
             }
             return View("Index", mesMangas);
+        }
+
+        public IActionResult Supprimer()
+        {
+            try
+            {
+
+                return View("Index");
+            }
+            catch
+            (MonException e)
+            {
+                return NotFound();
+            }
         }
     }
 }
